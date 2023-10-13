@@ -25,6 +25,7 @@ class IotWebApp
 public:
   IotWebApp();
   void init(const char *hostname, const char *webSocketPath);
+  void loop(void);
   void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
   void sendBinaryOverWebSocket(const char *buffer, size_t bufferSize);
   void sendBinaryOverWebSocket(JsonDocument &jsonDoc);

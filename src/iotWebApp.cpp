@@ -2,6 +2,10 @@
 IotWebApp::IotWebApp() : server(80), ws(NULL)
 {
 }
+void IotWebApp::loop(void)
+{
+  MDNS.update();
+}
 void IotWebApp::init(const char *hostname, const char *webSocketPath)
 {
 
