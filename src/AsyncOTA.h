@@ -23,6 +23,12 @@
 #include "ESPAsyncWebServer.h"
 #include "FS.h"
 
+#ifndef FIRMWARE_VERSION_MAJOR
+#define FIRMWARE_VERSION_MAJOR 1
+#define FIRMWARE_VERSION_MINOR 0
+#define FIRMWARE_VERSION_PATCH 0
+#endif
+
 #include "Webpage.h"
 
 class AsyncOtaClass
