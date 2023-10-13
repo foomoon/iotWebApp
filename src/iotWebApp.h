@@ -32,7 +32,7 @@ public:
   void sendBinaryOverWebSocket(const char *buffer, size_t bufferSize);
   void sendBinaryOverWebSocket(JsonDocument &jsonDoc);
   void sendJsonOverWebSocket(JsonDocument &jsonDoc);
-  void onWebsocketData(FunctType callback);
+  void onWebsocketData(FuncType callback);
 
 private:
   AsyncWebServer server;
