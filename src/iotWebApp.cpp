@@ -58,7 +58,7 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
     break;
   }
 }
-void IotWebApp::onWebsocketData(FunctType callback)
+void IotWebApp::onWebsocketData(FuncType callback)
 {
   wsCallback = callback;
 }

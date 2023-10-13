@@ -37,7 +37,7 @@ public:
 private:
   AsyncWebServer server;
   AsyncWebSocket *ws;
-  FunctType wsCallback;
+  FuncType wsCallback;
 };
 
 #endif // IotWebApp_H
