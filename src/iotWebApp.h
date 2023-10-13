@@ -20,7 +20,7 @@
 #include <ArduinoJson.h>
 #include "index.h" // Include the webpage "index.h" header
 
-typedef void (*FuncType)(*uint8_t, size_t);
+typedef void (*FuncType)(uint8_t *, size_t);
 
 class IotWebApp
 {
