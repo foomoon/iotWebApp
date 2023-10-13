@@ -20,6 +20,8 @@
 #include <ArduinoJson.h>
 #include "index.h" // Include the webpage "index.h" header
 
+typedef void (*FuncType)(*uint8_t, size_t);
+
 class IotWebApp
 {
 public:
@@ -30,10 +32,12 @@ public:
   void sendBinaryOverWebSocket(const char *buffer, size_t bufferSize);
   void sendBinaryOverWebSocket(JsonDocument &jsonDoc);
   void sendJsonOverWebSocket(JsonDocument &jsonDoc);
+  void onWebsocketData(FunctType callback);
 
 private:
   AsyncWebServer server;
   AsyncWebSocket *ws;
+  FunctType wsCallback;
 };
 
 #endif // IotWebApp_H

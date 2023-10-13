@@ -47,6 +47,8 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
   case WS_EVT_DATA:
     // Need a Calback function to handle data
     Serial.printf("WebSocket client #%u data\n", client->id());
+    if (wsCallback)
+      wsCallback(data, len);
     break;
   case WS_EVT_PONG:
     Serial.printf("WebSocket client #%u pong\n", client->id());
@@ -55,6 +57,10 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
     Serial.printf("WebSocket client #%u error(%u): %s\n", client->id(), *((uint16_t *)arg), (char *)data);
     break;
   }
+}
+void IotWebApp::onWebsocketData(FunctType callback)
+{
+  wsCallback = callback;
 }
 
 void IotWebApp::sendBinaryOverWebSocket(const char *buffer, size_t bufferSize)
