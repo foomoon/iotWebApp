@@ -1,0 +1,23 @@
+{
+  "name": "iotWebApp",
+  "version": "1.0.0",
+  "description": "Library to build web apps for ESP8266",
+  "keywords": "iot, ESP8266, ESP32, Web, App",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foomoon/iotWebApp.git"
+  },
+  "authors": [
+    {
+      "name": "Daniel Claxton",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ottowinter/ESPAsyncWebServer-esphome": "^2.1.0",
+    "alanswx/ESPAsyncWiFiManager": "^0.31"
+  },
+  "frameworks": "*",
+  "platforms": "*"
+}
