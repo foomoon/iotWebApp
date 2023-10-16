@@ -36,6 +36,7 @@ public:
   void sendJsonOverWebSocket(JsonDocument &jsonDoc);
   void onWebsocketData(FuncType callback);
   void onWebsocketConnect(FuncType callback);
+  void serveProgMem(const char *uri, const uint8_t *content, const uint32_t contentLength, const char *contentType = "text/html");
 
 private:
   AsyncWebServer server;

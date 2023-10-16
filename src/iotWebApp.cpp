@@ -17,11 +17,12 @@ void IotWebApp::init(const char *hostname, const char *webSocketPath)
     Serial.println("mDNS responder started");
   }
 
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-            {
-      AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", HTML, HTML_SIZE);
-      response->addHeader("Content-Encoding", "gzip"); // Enable Gzip compression
-      request->send(response); });
+  // server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+  //           {
+  //     AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", HTML, HTML_SIZE);
+  //     response->addHeader("Content-Encoding", "gzip"); // Enable Gzip compression
+  //     request->send(response); });
+  serveProgMem("/", HTML, HTML_SIZE);
 
   ws = new AsyncWebSocket(webSocketPath);
   ws->onEvent([this](AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
@@ -31,6 +32,15 @@ void IotWebApp::init(const char *hostname, const char *webSocketPath)
   AsyncOTA.begin(&server, "esp-app", "esp8266!"); // Start AsyncElegantOTA
 
   server.begin();
+}
+
+void serveProgMem(const char *uri, const uint8_t *content, const uint32_t contentLength, const char *contentType)
+{
+  server.on(uri, HTTP_GET, [](AsyncWebServerRequest *request)
+            {
+      AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", HTML, HTML_SIZE);
+      response->addHeader("Content-Encoding", "gzip"); // Enable Gzip compression
+      request->send(response); });
 }
 
 void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
