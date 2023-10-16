@@ -34,7 +34,7 @@ void IotWebApp::init(const char *hostname, const char *webSocketPath)
   server.begin();
 }
 
-void serveProgMem(const char *uri, const uint8_t *content, const uint32_t contentLength, const char *contentType)
+void IotWebApp::serveProgMem(const char *uri, const uint8_t *content, const uint32_t contentLength, const char *contentType)
 {
   server.on(uri, HTTP_GET, [](AsyncWebServerRequest *request)
             {
