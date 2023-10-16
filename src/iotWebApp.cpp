@@ -22,7 +22,7 @@ void IotWebApp::init(const char *hostname, const char *webSocketPath)
   //     AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", HTML, HTML_SIZE);
   //     response->addHeader("Content-Encoding", "gzip"); // Enable Gzip compression
   //     request->send(response); });
-  serveProgMem("/", HTML, HTML_SIZE);
+  // serveProgMem("/", HTML, HTML_SIZE);
 
   ws = new AsyncWebSocket(webSocketPath);
   ws->onEvent([this](AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
