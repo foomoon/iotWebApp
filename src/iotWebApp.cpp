@@ -36,9 +36,9 @@ void IotWebApp::init(const char *hostname, const char *webSocketPath)
 
 void IotWebApp::serveProgMem(const char *uri, const uint8_t *content, const uint32_t contentLength, const char *contentType)
 {
-  server.on(uri, HTTP_GET, [](AsyncWebServerRequest *request)
+  server.on(uri, HTTP_GET, [content, contentLength](AsyncWebServerRequest *request)
             {
-      AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", HTML, HTML_SIZE);
+      AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", content, contentLength);
       response->addHeader("Content-Encoding", "gzip"); // Enable Gzip compression
       request->send(response); });
 }
