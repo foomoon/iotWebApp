@@ -40,6 +40,8 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
   {
   case WS_EVT_CONNECT:
     Serial.printf("WebSocket client #%u connected from %s\n", client->id(), client->remoteIP().toString().c_str());
+    if (wsConnectCallback)
+      wsConnectCallback(data, len);
     break;
   case WS_EVT_DISCONNECT:
     Serial.printf("WebSocket client #%u disconnected\n", client->id());
@@ -47,8 +49,8 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
   case WS_EVT_DATA:
     // Need a Calback function to handle data
     Serial.printf("WebSocket client #%u data\n", client->id());
-    if (wsCallback)
-      wsCallback(data, len);
+    if (wsEventCallback)
+      wsEventCallback(data, len);
     break;
   case WS_EVT_PONG:
     Serial.printf("WebSocket client #%u pong\n", client->id());
@@ -61,6 +63,11 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
 void IotWebApp::onWebsocketData(FuncType callback)
 {
   wsCallback = callback;
+}
+
+void IotWebApp::onWebsocketData(FuncType callback)
+{
+  wsConnect = callback;
 }
 
 void IotWebApp::sendBinaryOverWebSocket(const char *buffer, size_t bufferSize)
