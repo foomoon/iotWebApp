@@ -62,12 +62,12 @@ void IotWebApp::onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
 }
 void IotWebApp::onWebsocketConnect(FuncType callback)
 {
-  wsCallback = callback;
+  wsConnectCallback = callback;
 }
 
 void IotWebApp::onWebsocketData(FuncType callback)
 {
-  wsConnect = callback;
+  wsEventCallback = callback;
 }
 
 void IotWebApp::sendBinaryOverWebSocket(const char *buffer, size_t bufferSize)
