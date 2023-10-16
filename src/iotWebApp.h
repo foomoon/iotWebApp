@@ -18,7 +18,9 @@
 #endif
 #include <ESP8266mDNS.h>
 #include <ArduinoJson.h>
+#ifndef WEBPAGE_H
 #include "index.h" // Include the webpage "index.h" header
+#endif
 
 typedef void (*FuncType)(uint8_t *, size_t);
 
