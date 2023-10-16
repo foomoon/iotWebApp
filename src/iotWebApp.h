@@ -35,6 +35,7 @@ public:
   void sendBinaryOverWebSocket(JsonDocument &jsonDoc);
   void sendJsonOverWebSocket(JsonDocument &jsonDoc);
   void onWebsocketData(FuncType callback);
+  void onWebsocketConnect(FuncType callback);
 
 private:
   AsyncWebServer server;
