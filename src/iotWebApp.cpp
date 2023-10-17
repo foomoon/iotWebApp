@@ -24,7 +24,16 @@ void IotWebApp::init(const char *hostname, const char *webSocketPath)
               { this->onWebSocketEvent(server, client, type, arg, data, len); });
   server.addHandler(ws);
 
-  AsyncOTA.begin(&server, "esp-app", "esp8266!"); // Start AsyncElegantOTA
+  // Handle WebSocket handshake with CORS headers
+  server.on("/ws", HTTP_OPTIONS, [](AsyncWebServerRequest *request)
+            {
+  AsyncWebServerResponse *response = request->beginResponse(200, "text/plain", "OK");
+  response->addHeader("Access-Control-Allow-Origin", "*");
+  response->addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  response->addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  request->send(response); });
+
+  AsyncOTA.begin(&server, "esp-app", "esp8266!");
 
   server.begin();
 }
