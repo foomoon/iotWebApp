@@ -24,6 +24,7 @@
 // Use the externally defined version of HTML
 extern const uint32_t HTML_SIZE;
 extern const uint8_t HTML[] PROGMEM;
+#warning "Using external HTML"
 #endif
 
 typedef void (*FuncType)(uint8_t *, size_t);
