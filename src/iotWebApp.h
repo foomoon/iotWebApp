@@ -20,6 +20,10 @@
 #include <ArduinoJson.h>
 #ifndef WEBPAGE_H
 #include "index.h" // Include the webpage "index.h" header
+#else
+// Use the externally defined version of HTML
+extern const uint32_t HTML_SIZE;
+extern const uint8_t HTML[] PROGMEM;
 #endif
 
 typedef void (*FuncType)(uint8_t *, size_t);
