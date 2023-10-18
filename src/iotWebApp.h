@@ -32,8 +32,9 @@ public:
   void loop(void);
   void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
   void sendBinaryOverWebSocket(const char *buffer, size_t bufferSize);
-  void sendBinaryOverWebSocket(JsonDocument &jsonDoc);
+  void sendMsgPackOverWebSocket(JsonDocument &jsonDoc);
   void sendJsonOverWebSocket(JsonDocument &jsonDoc);
+  void sendText(const char *buffer, size_t bufferSize);
   void onWebsocketData(FuncType callback);
   void onWebsocketConnect(FuncType callback);
   void serveProgMem(const char *uri, const uint8_t *content, const uint32_t contentLength, const char *contentType = "text/html");

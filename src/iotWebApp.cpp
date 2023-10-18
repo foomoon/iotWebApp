@@ -90,7 +90,7 @@ void IotWebApp::sendBinaryOverWebSocket(const char *buffer, size_t bufferSize)
     ws->binaryAll(buffer, bufferSize);
 }
 
-void IotWebApp::sendBinaryOverWebSocket(JsonDocument &jsonDoc)
+void IotWebApp::sendMsgPackOverWebSocket(JsonDocument &jsonDoc)
 {
   size_t msgPackSize = jsonDoc.memoryUsage() * 2;
   char msgPackBuffer[msgPackSize];
@@ -106,4 +106,10 @@ void IotWebApp::sendJsonOverWebSocket(JsonDocument &jsonDoc)
   serializeJson(jsonDoc, jsonBuffer, jsonSize);
   if (ws) // Check if the WebSocket instance is valid (not NULL)
     ws->textAll(String(jsonBuffer));
+}
+
+void IotWebApp::sendText(const char *buffer, size_t bufferSize)
+{
+  if (ws) // Check if the WebSocket instance is valid (not NULL)
+    ws->textAll(buffer, bufferSize);
 }
