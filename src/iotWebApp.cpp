@@ -1,4 +1,15 @@
 #include "IotWebApp.h"
+
+void configModeCallback(AsyncWiFiManager *myWiFiManager)
+{
+  Serial.println("Entered config mode");
+  Serial.println(WiFi.softAPIP());
+  // if you used auto generated SSID, print it
+  Serial.println(myWiFiManager->getConfigPortalSSID());
+  // entered config mode, make led toggle faster
+  //  ticker.attach(0.2, tick);
+}
+
 IotWebApp::IotWebApp() : server(80), ws(NULL)
 {
 }
@@ -9,9 +20,26 @@ void IotWebApp::loop(void)
 void IotWebApp::init(const char *hostname, const char *webSocketPath)
 {
 
-  AsyncWiFiManager wifiManager(&server, NULL);
-  wifiManager.autoConnect(hostname);
+  DNSServer dns;
+  AsyncWiFiManager wifiManager(&server, &dns);
+  // wifiManager.autoConnect(hostname);
 
+  // set callback that gets called when connecting to previous WiFi fails, and enters Access Point mode
+  wifiManager.setAPCallback(configModeCallback);
+
+  // fetches ssid and pass and tries to connect
+  // if it does not connect it starts an access point with the specified name
+  // here  "AutoConnectAP"
+  // and goes into a blocking loop awaiting configuration
+  if (!wifiManager.autoConnect(hostname))
+  {
+    Serial.println("failed to connect and hit timeout");
+    // reset and try again, or maybe put it to deep sleep
+    ESP.reset();
+    delay(1000);
+  }
+
+  Serial.println("Start MDNS responder");
   if (MDNS.begin(hostname))
   {
     Serial.println("mDNS responder started");
